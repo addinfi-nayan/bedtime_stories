@@ -2077,3 +2077,93 @@ body {
 @media (max-width: 400px) {
   .credit-badge { font-size: 0.72rem; padding: 0.2rem 0.5rem; }
 }
+
+/* ═══════════════════════════════════════════════
+   Admin Dashboard
+═══════════════════════════════════════════════ */
+
+.admin-loading { padding: 3rem; text-align: center; color: var(--grey-text); }
+
+.admin-dashboard { max-width: var(--max-w); margin: 0 auto; width: 100%; padding: 1.5rem 1rem 3rem; }
+
+.admin-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.2rem; }
+.admin-title { font-size: 1.4rem; font-weight: 800; }
+.admin-header .btn-secondary { width: auto; padding: 0.5rem 1rem; }
+
+.admin-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.8rem;
+  margin-bottom: 1.4rem;
+}
+.admin-stat-tile {
+  border: 1.5px solid var(--black);
+  border-radius: var(--radius);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+.admin-stat-value { font-size: 1.6rem; font-weight: 800; }
+.admin-stat-label { font-size: 0.75rem; color: var(--grey-text); text-transform: uppercase; letter-spacing: 0.03em; }
+
+.admin-toolbar { display: flex; gap: 0.6rem; margin-bottom: 1rem; flex-wrap: wrap; }
+.admin-search { flex: 1 1 240px; }
+.admin-toolbar .btn-secondary { width: auto; padding: 0.6rem 1rem; white-space: nowrap; }
+.admin-toolbar .adv-select { width: auto; }
+
+.admin-table-wrap { overflow-x: auto; border: 1.5px solid var(--black); border-radius: var(--radius); }
+.admin-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+.admin-table th {
+  text-align: left;
+  padding: 0.7rem 0.9rem;
+  border-bottom: 1.5px solid var(--black);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--grey-text);
+}
+.admin-table td { padding: 0.65rem 0.9rem; border-bottom: 1px solid var(--grey-mid); vertical-align: middle; }
+.admin-row { cursor: pointer; transition: background 0.1s; }
+.admin-row:hover { background: var(--grey-light); }
+.admin-empty-row { text-align: center; color: var(--grey-text); padding: 2rem !important; }
+
+.admin-user-cell { display: flex; align-items: center; gap: 0.6rem; }
+.admin-avatar { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; }
+.admin-avatar-fallback {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--black); color: var(--white);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 0.85rem; flex-shrink: 0;
+}
+.admin-avatar-fallback.large { width: 52px; height: 52px; font-size: 1.3rem; }
+.admin-user-name { font-weight: 700; }
+.admin-user-email { font-size: 0.78rem; color: var(--grey-text); }
+.admin-badge {
+  font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.03em;
+  border: 1px solid var(--black); border-radius: 4px; padding: 0.05rem 0.35rem; margin-left: 0.4rem;
+}
+
+.admin-drawer { max-width: 560px; text-align: left; max-height: 88vh; overflow-y: auto; }
+.admin-drawer-header { display: flex; align-items: center; gap: 0.9rem; margin-bottom: 1.2rem; }
+.admin-drawer-avatar { width: 52px; height: 52px; border-radius: 50%; object-fit: cover; }
+.admin-drawer-name { font-size: 1.15rem; font-weight: 800; }
+.admin-drawer-email { font-size: 0.82rem; color: var(--grey-text); }
+
+.admin-drawer-section { margin-bottom: 1.3rem; }
+.admin-drawer-section .btn-secondary { width: auto; padding: 0.55rem 1rem; }
+
+.admin-credit-row { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+.admin-credit-input { max-width: 100px; }
+
+.admin-timeline { list-style: none; max-height: 220px; overflow-y: auto; border: 1px solid var(--grey-mid); border-radius: var(--radius-sm); }
+.admin-timeline-item { padding: 0.55rem 0.8rem; border-bottom: 1px solid var(--grey-mid); font-size: 0.82rem; display: flex; flex-direction: column; gap: 0.15rem; }
+.admin-timeline-item:last-child { border-bottom: none; }
+.admin-timeline-date { font-size: 0.68rem; color: var(--grey-text); }
+.admin-timeline-empty { color: var(--grey-text); font-size: 0.85rem; }
+
+@media (max-width: 640px) {
+  .admin-table { font-size: 0.78rem; }
+  .admin-table th:nth-child(5), .admin-table td:nth-child(5),
+  .admin-table th:nth-child(6), .admin-table td:nth-child(6) { display: none; }
+}

@@ -6,7 +6,7 @@ const PACKAGES = [
   { id: 'power',   credits: 180, amount: 399, label: 'Power Pack', per: '₹2.2/story',  badge: 'Save 33%' },
 ]
 
-export default function OutOfCreditsModal({ onClose, onRefill }) {
+export default function OutOfCreditsModal({ session, onClose, onRefill }) {
   const [loading, setLoading]   = useState(false)
   const [error, setError]       = useState(null)
   const [selected, setSelected] = useState('popular')
@@ -15,6 +15,9 @@ export default function OutOfCreditsModal({ onClose, onRefill }) {
     const pkg = PACKAGES.find((p) => p.id === selected)
     if (!pkg) return
 
+    const token = session?.access_token
+    if (!token) { setError('Please sign in again before purchasing.'); return }
+
     setLoading(true)
     setError(null)
 
@@ -22,7 +25,7 @@ export default function OutOfCreditsModal({ onClose, onRefill }) {
       // 1 — Create Razorpay order via API route
       const orderRes = await fetch('/api/create-order', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify({ amount: pkg.amount, credits: pkg.credits }),
       })
       const order = await orderRes.json()
@@ -43,8 +46,8 @@ export default function OutOfCreditsModal({ onClose, onRefill }) {
             // 3 — Verify payment on backend
             const verifyRes = await fetch('/api/verify-payment', {
               method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ ...response, credits: pkg.credits }),
+              headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+              body: JSON.stringify({ ...response, credits: pkg.credits, amount: pkg.amount }),
             })
             const result = await verifyRes.json()
             if (result.verified) {

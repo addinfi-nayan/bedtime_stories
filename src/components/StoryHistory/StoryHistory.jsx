@@ -1,21 +1,23 @@
 import { useState, useEffect } from 'react'
-import { getHistory, deleteStory, clearHistory } from '../../services/storage'
+import { getHistory, deleteStory, clearHistory } from '../../services/supabaseApi'
+import { supabase } from '../../lib/supabaseClient'
 
 export default function StoryHistory({ onReadStory, onHome }) {
   const [history, setHistory] = useState([])
   const [confirmClear, setConfirmClear] = useState(false)
 
   useEffect(() => {
-    setHistory(getHistory())
+    getHistory().then(setHistory).catch(() => setHistory([]))
   }, [])
 
-  function handleDelete(id) {
-    const updated = deleteStory(id)
-    setHistory(updated)
+  async function handleDelete(id) {
+    await deleteStory(id)
+    setHistory((h) => h.filter((s) => s.id !== id))
   }
 
-  function handleClearAll() {
-    clearHistory()
+  async function handleClearAll() {
+    const { data } = await supabase.auth.getUser()
+    if (data?.user) await clearHistory(data.user.id)
     setHistory([])
     setConfirmClear(false)
   }

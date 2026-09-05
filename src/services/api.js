@@ -7,7 +7,7 @@
  */
 
 const API_URL = 'https://api.anthropic.com/v1/messages'
-const MODEL   = 'claude-sonnet-4-20250514'
+const MODEL   = 'claude-sonnet-5'
 
 // Hard safety system prompt — enforced on every single request, cannot be overridden
 const SYSTEM_PROMPT = `You are a children's bedtime story writer. You write ONLY safe, gentle, age-appropriate stories for children aged 2–12.

@@ -1,11 +1,12 @@
 import { useState, useEffect, useRef } from 'react'
 import { streamStory, parseStory } from '../../services/api'
-import { saveStory } from '../../services/storage'
+import { saveStory } from '../../services/supabaseApi'
 import AudioPlayer from '../AudioPlayer/AudioPlayer'
 import SharePanel from './SharePanel'
 
 export default function StoryOutput({
   story: initialStory,
+  user,
   credits,
   onCreditsChange,
   onDeductCredits,
@@ -54,7 +55,7 @@ export default function StoryOutput({
               deliveryMode: initialStory.deliveryMode,
               streaming:    false,
             }
-            saveStory(finalStory)
+            if (user) saveStory({ ...finalStory, user_id: user.id }).catch(() => {})
             setStory(finalStory)
           },
           signal: controller.signal,

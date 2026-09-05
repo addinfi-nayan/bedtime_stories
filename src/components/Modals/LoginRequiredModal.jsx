@@ -1,14 +1,7 @@
 import { useEffect, useRef } from 'react'
-import { saveUser } from '../../services/storage'
+import { supabase } from '../../lib/supabaseClient'
 
 const CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID
-
-function parseJwt(token) {
-  try {
-    const base64 = token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/')
-    return JSON.parse(atob(base64))
-  } catch { return null }
-}
 
 export default function LoginRequiredModal({ onClose, onSignIn }) {
   const btnRef = useRef(null)
@@ -18,12 +11,12 @@ export default function LoginRequiredModal({ onClose, onSignIn }) {
       if (!CLIENT_ID || !window.google || !btnRef.current) return
       window.google.accounts.id.initialize({
         client_id: CLIENT_ID,
-        callback: (response) => {
-          const payload = parseJwt(response.credential)
-          if (!payload) return
-          const userData = { id: payload.sub, name: payload.name, email: payload.email, picture: payload.picture }
-          saveUser(userData)
-          onSignIn(userData)
+        callback: async (response) => {
+          const { error } = await supabase.auth.signInWithIdToken({
+            provider: 'google',
+            token: response.credential,
+          })
+          if (!error) onSignIn()
         },
         auto_select: false,
       })
