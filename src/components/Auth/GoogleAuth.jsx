@@ -1,14 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
-import { saveUser, clearUser } from '../../services/storage'
+import { supabase } from '../../lib/supabaseClient'
 
 const CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID
-
-function parseJwt(token) {
-  try {
-    const base64 = token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/')
-    return JSON.parse(atob(base64))
-  } catch { return null }
-}
 
 function initGoogle(callback) {
   if (!CLIENT_ID) {
@@ -23,23 +16,28 @@ function initGoogle(callback) {
   })
 }
 
-export default function GoogleAuth({ user, onUserChange }) {
+export default function GoogleAuth({ user, onSignedIn, onSignOut }) {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [signingIn, setSigningIn] = useState(false)
+  const [authError, setAuthError] = useState(null)
   const menuRef      = useRef(null)
   const btnDivRef    = useRef(null)   // div where Google renders its button
   const googleReady  = useRef(false)
 
-  function handleCredential(response) {
-    const payload = parseJwt(response.credential)
-    if (!payload) return
-    const userData = {
-      id:      payload.sub,
-      name:    payload.name,
-      email:   payload.email,
-      picture: payload.picture,
+  async function handleCredential(response) {
+    setSigningIn(true)
+    setAuthError(null)
+    const { error } = await supabase.auth.signInWithIdToken({
+      provider: 'google',
+      token: response.credential,
+    })
+    setSigningIn(false)
+    if (error) {
+      console.error('[GoogleAuth] Supabase sign-in failed:', error.message)
+      setAuthError('Sign-in failed. Please try again.')
+      return
     }
-    saveUser(userData)
-    onUserChange(userData)
+    onSignedIn?.()
   }
 
   // Render Google's button once GSI script is loaded and the div is in the DOM
@@ -86,11 +84,9 @@ export default function GoogleAuth({ user, onUserChange }) {
     return () => document.removeEventListener('mousedown', handler)
   }, [menuOpen])
 
-  function handleSignOut() {
-    if (window.google) window.google.accounts.id.disableAutoSelect()
+  async function handleSignOut() {
     googleReady.current = false
-    clearUser()
-    onUserChange(null)
+    await onSignOut?.()
     setMenuOpen(false)
   }
 
@@ -101,6 +97,8 @@ export default function GoogleAuth({ user, onUserChange }) {
         {!CLIENT_ID && (
           <span className="no-client-id-hint">Set VITE_GOOGLE_CLIENT_ID in .env</span>
         )}
+        {authError && <span className="no-client-id-hint">{authError}</span>}
+        {signingIn && <span className="no-client-id-hint">Signing in…</span>}
         {/* Google renders its button inside this div */}
         <div ref={btnDivRef} id="google-signin-btn" />
       </div>
