@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Bedtime Stories application architecture</title>
+  <desc id="desc">A browser PWA connects to Supabase, Claude, and payment services through Vercel functions.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#07070a"/>
+      <stop offset="1" stop-color="#17131f"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffd766"/>
+      <stop offset="1" stop-color="#a887ff"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#000" flood-opacity=".35"/>
+    </filter>
+    <marker id="arrow" markerWidth="11" markerHeight="11" refX="8" refY="5.5" orient="auto"><path d="M0,0 L10,5.5 L0,11 Z" fill="#a69daf"/></marker>
+    <style>
+      .h { font: 700 60px Arial, sans-serif; fill: #fff; letter-spacing: -2px }
+      .sub { font: 400 22px Arial, sans-serif; fill: #aaa4b1 }
+      .label { font: 700 25px Arial, sans-serif; fill: #fff }
+      .copy { font: 400 18px Arial, sans-serif; fill: #c9c3d1 }
+      .small { font: 600 15px Arial, sans-serif; fill: #aaa4b1; letter-spacing: 1.1px }
+      .line { fill: none; stroke: #a69daf; stroke-width: 3; marker-end: url(#arrow) }
+    </style>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#background)"/>
+  <circle cx="1420" cy="95" r="260" fill="#6d4cb8" opacity=".13"/>
+  <circle cx="110" cy="890" r="270" fill="#ffce63" opacity=".08"/>
+  <text x="100" y="105" class="h">How I built Bedtime Stories</text>
+  <text x="100" y="145" class="sub">An AI-powered bedtime-story generator — designed as a lightweight PWA</text>
+
+  <path class="line" d="M555 375 C620 375, 625 280, 690 280"/>
+  <path class="line" d="M555 430 C620 430, 625 515, 690 515"/>
+  <path class="line" d="M555 485 C620 485, 625 745, 690 745"/>
+  <path class="line" d="M1065 745 C1135 745, 1130 700, 1195 700"/>
+  <path class="line" d="M1065 745 C1135 745, 1130 855, 1195 855"/>
+
+  <g filter="url(#shadow)">
+    <rect x="100" y="280" width="455" height="290" rx="28" fill="#17161c" stroke="#4b4655" stroke-width="2"/>
+    <rect x="100" y="280" width="455" height="10" rx="5" fill="url(#accent)"/>
+    <text x="138" y="350" class="label">🌙 React + Vite PWA</text>
+    <text x="138" y="392" class="copy">Responsive React interface</text>
+    <text x="138" y="425" class="copy">Story creator + streaming UI</text>
+    <text x="138" y="458" class="copy">Browser speech synthesis</text>
+    <text x="138" y="491" class="copy">Local drafts, audio cache &amp; offline shell</text>
+    <text x="138" y="535" class="small">THE CLIENT EXPERIENCE</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="690" y="190" width="375" height="180" rx="28" fill="#17161c" stroke="#4b4655" stroke-width="2"/>
+    <text x="728" y="252" class="label">✦ Anthropic Claude</text>
+    <text x="728" y="292" class="copy">Safe prompt construction</text>
+    <text x="728" y="324" class="copy">SSE text streaming</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="690" y="420" width="375" height="190" rx="28" fill="#17161c" stroke="#4b4655" stroke-width="2"/>
+    <text x="728" y="482" class="label">⚡ Supabase</text>
+    <text x="728" y="522" class="copy">Google-authenticated accounts</text>
+    <text x="728" y="555" class="copy">Postgres stories, credits &amp; CRM</text>
+    <text x="728" y="588" class="copy">RLS + database RPCs</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="690" y="675" width="375" height="145" rx="28" fill="#17161c" stroke="#4b4655" stroke-width="2"/>
+    <text x="728" y="735" class="label">▲ Vercel functions</text>
+    <text x="728" y="775" class="copy">Protected payment endpoints</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="1195" y="625" width="305" height="150" rx="28" fill="#17161c" stroke="#4b4655" stroke-width="2"/>
+    <text x="1230" y="685" class="label">Razorpay</text>
+    <text x="1230" y="725" class="copy">Order + checkout</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="1195" y="800" width="305" height="115" rx="28" fill="#17161c" stroke="#4b4655" stroke-width="2"/>
+    <text x="1230" y="855" class="label">Secure crediting</text>
+    <text x="1230" y="885" class="copy">Verify → redeem_purchase</text>
+  </g>
+  <text x="100" y="940" class="small">REACT • SUPABASE • CLAUDE • RAZORPAY • VERCEL</text>
+</svg>

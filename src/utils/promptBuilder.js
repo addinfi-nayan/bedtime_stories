@@ -104,6 +104,7 @@ QUALITY RULES:
 - Include natural, gentle humour appropriate for the age group
 - Keep the story warm, safe, and soothing throughout — no scary moments, no adult themes
 - End on a positive, heartwarming note that leaves the child feeling happy and calm
+- Please ensure that the content does not contain any abusive, offensive, or adult/explicit material. Such content is strictly prohibited.
 ${toggles.length ? '\nSPECIAL INSTRUCTIONS:\n' + toggles.map(t => `- ${t}`).join('\n') : ''}
 ${advanced.length ? '\nADVANCED OPTIONS:\n' + advanced.map(a => `- ${a}`).join('\n') : ''}
 ${freeText.length ? '\nCUSTOM DETAILS:\n' + freeText.map(f => `- ${f}`).join('\n') : ''}
